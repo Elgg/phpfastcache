@@ -52,7 +52,7 @@ class ClusterAggregator implements AggregatorInterface
             try {
                 $clusterAggregatorName = 'cluster_' . \bin2hex(\random_bytes(15));
             } catch (Exception) {
-                $clusterAggregatorName = 'cluster_' . \str_shuffle(\spl_object_hash(new stdClass()));
+                $clusterAggregatorName = 'cluster_' . \str_shuffle((string) \spl_object_id(new stdClass()));
             }
         }
 
@@ -74,7 +74,7 @@ class ClusterAggregator implements AggregatorInterface
             throw new PhpfastcacheLogicException('The cluster has been already build, cannot aggregate more pools.');
         }
 
-        $splHash = \spl_object_hash($driverPool);
+        $splHash = \spl_object_id($driverPool);
         if (!isset($this->driverPools[$splHash])) {
             if ($driverPool instanceof ClusterPoolInterface) {
                 throw new PhpfastcacheLogicException('Recursive cluster aggregation is not allowed !');
@@ -126,7 +126,7 @@ class ClusterAggregator implements AggregatorInterface
             throw new PhpfastcacheLogicException('The cluster has been already build, cannot disaggregate pools.');
         }
 
-        $splHash = \spl_object_hash($driverPool);
+        $splHash = \spl_object_id($driverPool);
         if (isset($this->driverPools[$splHash])) {
             unset($this->driverPools[$splHash]);
         } else {
