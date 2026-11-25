@@ -247,7 +247,7 @@ class CacheManager
         self::$instances = \array_filter(
             \array_map(
                 static function (ExtendedCacheItemPoolInterface $cachePool) use ($cachePoolInstance, &$found) {
-                    if (\spl_object_hash($cachePool) === \spl_object_hash($cachePoolInstance)) {
+                    if (\spl_object_id($cachePool) === \spl_object_id($cachePoolInstance)) {
                         $found = true;
                         return null;
                     }

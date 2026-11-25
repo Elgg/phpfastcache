@@ -40,9 +40,9 @@ if (\count($cacheInstances) === 3) {
     $testHelper->assertFail('A single cache instance have NOT been cleared');
 }
 
-$driverInstance2Hash = spl_object_hash($driverInstance2);
+$driverInstance2Hash = spl_object_id($driverInstance2);
 foreach ($cacheInstances as $cacheInstance) {
-    $driverInstanceHash = spl_object_hash($cacheInstance);
+    $driverInstanceHash = spl_object_id($cacheInstance);
     if ($driverInstanceHash !== $driverInstance2Hash) {
         $testHelper->assertPass("Compared cache instance #{$driverInstanceHash} does not match with previously cleared cache instance #" . $driverInstance2Hash);
     } else {
